@@ -43,7 +43,7 @@ function Ticker() {
   }, []);
 
   return (
-    <div className="overflow-hidden bg-black text-white w-full h-[40px] flex items-center">
+    <div className="sticky top-0 left-0 w-screen overflow-hidden bg-black text-white h-[40px] flex items-center">
       <div className="relative w-full whitespace-nowrap overflow-hidden">
         <div className="marquee-content py-2">
           {gainers.map((stock) => (

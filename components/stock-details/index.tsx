@@ -14,7 +14,7 @@ function StockDetailes({ stock }: IStockDetailsProps) {
           <h1 className="text-xl font-bold">{stock.company}</h1>
         </div>
         <div>
-          <BookmarkButton symbol={stock.symbol} />
+          <BookmarkButton stock={stock} />
         </div>
       </div>
       <div className="flex-1 w-full py-[100px]">

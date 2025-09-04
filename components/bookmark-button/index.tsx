@@ -1,42 +1,24 @@
 "use client";
 
+import useBookmark from "@/hooks/useBookmark";
+import { IStock } from "@/hooks/useSearchStock";
 import { BookmarkMinus, BookmarkPlus } from "lucide-react";
-import { useState } from "react";
 
 interface IBookmarkButtonProps {
-  symbol: string;
+  stock: IStock;
 }
 
-function BookmarkButton({ symbol }: IBookmarkButtonProps) {
-  const [bookmarks, setBookmarks] = useState<string[]>(
-    JSON.parse(window.localStorage.getItem("stocks-bookmarks") || "[]")
+function BookmarkButton({ stock }: IBookmarkButtonProps) {
+  const { isInitializing, bookmarks, handleBookmark } = useBookmark();
+  const isBookmarked = bookmarks.some(
+    (bookmark) => bookmark.symbol === stock.symbol
   );
 
-  console.log(bookmarks);
-  const isBookmarked = bookmarks.includes(symbol);
-  console.log(isBookmarked);
-
-  const handleBookmark = () => {
-    if (isBookmarked) {
-      const newBookmarks = bookmarks.filter((bookmark) => bookmark !== symbol);
-      window.localStorage.setItem(
-        "stocks-bookmarks",
-        JSON.stringify(newBookmarks)
-      );
-      setBookmarks(newBookmarks);
-    } else {
-      const newBookmarks = [...bookmarks, symbol];
-      window.localStorage.setItem(
-        "stocks-bookmarks",
-        JSON.stringify(newBookmarks)
-      );
-      setBookmarks(newBookmarks);
-    }
-  };
+  if (isInitializing) return null;
   return (
     <div>
       <button
-        onClick={handleBookmark}
+        onClick={() => handleBookmark(stock)}
         className={` text-white flex items-center justify-center gap-2 py-2 px-4 rounded-xl font-bold cursor-pointer text-xs ${
           !isBookmarked
             ? "bg-green-500 hover:bg-green-500/90"

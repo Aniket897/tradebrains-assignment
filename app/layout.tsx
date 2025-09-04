@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.className} overflow-y-hidden antialiased`}>
+      <body className={`${outfit.className} overflow-x-hidden antialiased flex flex-col`}>
         <Ticker />
         {children}
       </body>
