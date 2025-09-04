@@ -2,6 +2,30 @@ import { getStockUsingSymbol } from "@/actions/stock";
 import ErrorComponent from "@/components/error-component";
 import StockDetailes from "@/components/stock-details";
 import StockNotFound from "@/components/stock-not-found";
+import { Metadata } from "next";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{
+    symbol: string;
+  }>;
+}): Promise<Metadata> => {
+  const { symbol } = await params;
+  const { stock } = await getStockUsingSymbol(symbol);
+
+  if (!stock) {
+    return {
+      title: `Stock Not Found ! ${symbol}`,
+      description: `No data available for stock symbol ${symbol}.`,
+    };
+  }
+
+  return {
+    title: `${stock.company} (${symbol}) | Stock Tracker`,
+    description: `View real-time price charts, performance, and analysis for ${stock.company} (${symbol}).`,
+  };
+};
 
 async function Page({
   params,
