@@ -10,8 +10,7 @@ async function page({
     symbol: string;
   };
 }) {
-  const { symbol } = await params;
-  const { error, stock } = await getStockUsingSymbol(symbol);
+  const { error, stock } = await getStockUsingSymbol(params.symbol);
 
   if (error) return <ErrorComponent error={error} />;
   if (!stock) return <StockNotFound />;
