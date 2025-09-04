@@ -3,14 +3,15 @@ import ErrorComponent from "@/components/error-component";
 import StockDetailes from "@/components/stock-details";
 import StockNotFound from "@/components/stock-not-found";
 
-async function page({
+async function Page({
   params,
 }: {
-  params: {
+  params: Promise<{
     symbol: string;
-  };
+  }>;
 }) {
-  const { error, stock } = await getStockUsingSymbol(params.symbol);
+  const { symbol } = await params;
+  const { error, stock } = await getStockUsingSymbol(symbol);
 
   if (error) return <ErrorComponent error={error} />;
   if (!stock) return <StockNotFound />;
@@ -18,4 +19,4 @@ async function page({
   return <StockDetailes stock={stock} />;
 }
 
-export default page;
+export default Page;

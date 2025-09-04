@@ -1,4 +1,4 @@
-import { IStock } from "@/types/stock";
+import { IStock } from "@/hooks/useSearchStock";
 import Link from "next/link";
 
 interface IResultProps {
