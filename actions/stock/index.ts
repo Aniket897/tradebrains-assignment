@@ -1,5 +1,5 @@
 import { IStock } from "@/hooks/useSearchStock";
-import { searchAPI } from "@/utils/api";
+import { getStockAPI, searchAPI } from "@/utils/api";
 
 export const getStockUsingSymbol = async (
   symbol: string
@@ -8,16 +8,20 @@ export const getStockUsingSymbol = async (
   stock: IStock | null;
 }> => {
   try {
-    const [searchResponse] = await Promise.all([searchAPI(symbol)]);
+    console.log(symbol);
+    const searchResponse = await getStockAPI(symbol);
+    // const [searchResponse] = await Promise.all([searchAPI(symbol)]);
 
-    if (!searchResponse.data.length) {
+    console.log("searchdata :" , searchResponse.data.stock)
+
+    if (!searchResponse.data.stock.length) {
       return {
         error: "Stock not found!",
         stock: null,
       };
     }
     return {
-      stock: searchResponse.data[0],
+      stock: searchResponse.data.stock[0],
       error: "",
     };
   } catch {

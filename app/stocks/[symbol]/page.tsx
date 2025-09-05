@@ -13,6 +13,7 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const { symbol } = await params;
   const { stock } = await getStockUsingSymbol(symbol);
+  console.log(stock)
 
   if (!stock) {
     return {

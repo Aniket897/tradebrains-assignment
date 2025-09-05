@@ -3,7 +3,13 @@
 .marquee-content {
   display: inline-flex;
   animation: marquee 20s linear infinite;
+  animation-play-state: running;
 }
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(100%);
@@ -11,4 +17,8 @@
   100% {
     transform: translateX(-100%);
   }
+}
+
+.marquee-content-stop {
+  animation: none;
 }

@@ -2,6 +2,7 @@
 
 import { getTickerData } from "@/utils/api";
 import { TrendingDown, TrendingUp } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface TickerItem {
@@ -47,28 +48,27 @@ function Ticker() {
       <div className="relative w-full whitespace-nowrap overflow-hidden">
         <div className="marquee-content py-2">
           {gainers.map((stock) => (
-            <div
-              key={stock.id}
-              className="flex items-center mx-6 w-fit text-xs"
-            >
-              <p className="font-semibold">{stock.symbol}</p>
-              <p className="ml-2">{stock.close.toFixed(2)}</p>
-              <p
-                className={`ml-2 ${
-                  stock.change >= 0 ? "text-green-400" : "text-red-400"
-                }`}
-              >
-                {stock.change >= 0
-                  ? `+${stock.change.toFixed(2)}`
-                  : stock.change.toFixed(2)}{" "}
-                ({stock.percent.toFixed(2)}%)
-              </p>
-              {stock.change >= 0 ? (
-                <TrendingUp size={15} className="ml-2" color="green" />
-              ) : (
-                <TrendingDown color="red" size={15} className="ml-2" />
-              )}
-            </div>
+            <Link href={`/stocks/${stock.symbol}`} key={stock.id}>
+              <div className="flex items-center mx-6 w-fit text-xs">
+                <p className="font-semibold">{stock.symbol}</p>
+                <p className="ml-2">{stock.close.toFixed(2)}</p>
+                <p
+                  className={`ml-2 ${
+                    stock.change >= 0 ? "text-green-400" : "text-red-400"
+                  }`}
+                >
+                  {stock.change >= 0
+                    ? `+${stock.change.toFixed(2)}`
+                    : stock.change.toFixed(2)}{" "}
+                  ({stock.percent.toFixed(2)}%)
+                </p>
+                {stock.change >= 0 ? (
+                  <TrendingUp size={15} className="ml-2" color="green" />
+                ) : (
+                  <TrendingDown color="red" size={15} className="ml-2" />
+                )}
+              </div>
+            </Link>
           ))}
         </div>
       </div>

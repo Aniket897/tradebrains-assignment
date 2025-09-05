@@ -13,6 +13,12 @@ export const searchAPI = async (search: string) => {
   return response;
 };
 
+
+export const getStockAPI = async (symbol : string) => {
+  const response= await api.get(`https://portal.tradebrains.in/api/company/search/portal/?search=${symbol}`)
+  return response;
+}
+
 export const getStockPriceApi = async (symbol: string) => {
   const response = await api.get(
     `${process.env.NEXT_PUBLIC_API_URL}/api/assignment/stock/${symbol}/prices?days=1&type=INTRADAY&limit=15`
